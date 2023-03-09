@@ -9,9 +9,9 @@ const lightTheme = "light-theme";
 // Завантажуємо стан теми з локального сховища
 const loadThemeState = () => {
   const themeState = localStorage.getItem(storageKey);
-  //   if (themeState === darkTheme) {
-  //     turnOnDarkTheme();
-  //   }
+  if (themeState === darkTheme) {
+    turnOnDarkTheme();
+  }
 };
 // Робимо функцію для збереження теми в локалсторедж
 const saveThemeState = (themeState) => {
@@ -55,3 +55,6 @@ const changeTheme = () => {
 };
 
 themeButton.addEventListener("click", changeTheme); //Додаємо слухач події
+
+// Завантажуємо початковий стан
+loadThemeState();
