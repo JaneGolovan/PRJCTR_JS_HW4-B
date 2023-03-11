@@ -1,7 +1,8 @@
 // отримаємо елементи для роботи
 let themeButton = document.querySelector("#themeButton");
 let lastTurn = document.querySelector("#lastTurn");
-const storageKeyDate = "storageKeyDate";
+const storageKeyDateDark = "storageKeyDateDark";
+const storageKeyDateLight = "storageKeyDateLight";
 const storageKey = "themeState";
 const darkTheme = "dark-theme";
 const lightTheme = "light-theme";
@@ -22,19 +23,25 @@ const saveThemeState = (themeState) => {
 };
 // Робимо функцію для збереження дати в локалсторедж
 
-const saveDateState = () => {
-  localStorage.setItem(storageKeyDate, Date.now());
+const saveDateStateDark = () => {
+  localStorage.setItem(storageKeyDateDark, Date.now());
+};
+const saveDateStateLight = () => {
+  localStorage.setItem(storageKeyDateLight, Date.now());
 };
 
 // Робимо функцію для виводу актуальної дати
 const showCurrentDate = () => {
-  const dateState = new Date(
-    parseInt(localStorage.getItem(storageKeyDate))
+  const dateStateDark = new Date(
+    parseInt(localStorage.getItem(storageKeyDateDark))
+  ).toLocaleString();
+  const dateStateLight = new Date(
+    parseInt(localStorage.getItem(storageKeyDateLight))
   ).toLocaleString();
   if (document.body.classList.contains(lightTheme)) {
-    lastTurn.textContent = `Last turn on: ${dateState}`;
+    lastTurn.textContent = `Last turn on: ${dateStateLight}`;
   } else {
-    lastTurn.textContent = `Last turn off: ${dateState}`;
+    lastTurn.textContent = `Last turn off: ${dateStateDark}`;
   }
 };
 
@@ -44,7 +51,7 @@ const turnOnLightTheme = () => {
   document.body.classList.remove(darkTheme);
   themeButton.textContent = "Turn off";
   saveThemeState(lightTheme);
-  saveDateState();
+  saveDateStateLight();
 };
 
 // Умови зміни теми на темну
@@ -53,7 +60,7 @@ const turnOnDarkTheme = () => {
   document.body.classList.remove(lightTheme);
   themeButton.textContent = "Turn on";
   saveThemeState(darkTheme);
-  saveDateState();
+  saveDateStateDark();
 };
 
 // міняємо тему залежно від класу
